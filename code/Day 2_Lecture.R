@@ -71,6 +71,31 @@ colnames(data) <- tolower(colnames(data))
 data
 
 # 2.4 ---------------------------------------------------------------------
+flipper_length_over_time <-
+data.frame(
+year = c(2007, 2007, 2007, 
+               2008, 2008, 2008, 
+               2009, 2009, 2009),
+flipper_length_mm =
+      c(186.5, 192.4, 215.1,
+         191.0, 197.7, 217.5,
+        192.0, 198.0, 218.4), 
+    species = as.factor(
+      c(
+        "Adelie", "Chinstrap", "Gento",
+        "Adelie", "Chinstrap", "Gento",
+        "Adelie", "Chinstrap", "Gento"
+ )))
 
+library(ggplot2)
+
+ggplot(flipper_length_over_time, 
+       aes(x = year, 
+           y = flipper_length_mm, 
+           color = species)) +   # 這裡就是分顏色和畫出三條線的關鍵！
+  geom_line()                    # 加上線條圖層
+
+
+# 2.5 ---------------------------------------------------------------------
 
 
