@@ -97,5 +97,40 @@ ggplot(flipper_length_over_time,
 
 
 # 2.5 ---------------------------------------------------------------------
+library(datapasta)
+library(tidyverse)
+#Example 3 
+harvard_school_ages <- tibble::tribble(
+  ~school, ~founding_year,
+  "Harvard College",     1636,
+  "Medicine",     1782,
+  "Divinity",     1816,
+  "Law",     1817,
+  "Engineering and Applied Sciences",     1847,
+  "Dental Medicine",     1867,
+  "Arts and Sciences",     1872,
+  "Business",     1908,
+  "Extension",     1910,
+  "Design",     1936,
+  "Education",     1920,
+  "Public Health",     1913,
+  "Government",     1936
+)
 
+harvard_school_ages$age <- 2025 - harvard_school_ages$founding_year
 
+ggplot(harvard_school_ages, 
+       aes(y = forcats::fct_reorder(school, age), x = age)) + 
+  geom_col(fill = 'firebrick') 
+
+ggplot(harvard_school_ages, 
+       aes(y = forcats::fct_reorder(school, age), x = founding_year, xend = 2025)) + 
+  geom_segment(color = 'firebrick') + 
+  geom_point() + 
+  geom_vline(xintercept = 2025, linetype = 'dashed', color = 'firebrick') + 
+  geom_text(aes(x = (2025 + founding_year)/2, label = paste0(age, ' years old')), nudge_y = .3, size = 3, color = 'firebrick') + 
+  geom_text(aes(x = founding_year, label = founding_year), nudge_y = -.3, size = 3) + 
+  theme_bw() +
+  scale_x_continuous(breaks = c(1700, 1800, 1900, 2000, 2025)) + 
+  ggtitle("Ages of Schools at Harvard University in 2025") + 
+  labs(y = "", x = "", caption = "Data from https://en.wikipedia.org/wiki/Harvard_University")
