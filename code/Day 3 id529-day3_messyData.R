@@ -19,24 +19,25 @@ head(messy_data)
 
 
 # Clean column names ------------------------------------------------------
-
+#Take a look at variable names
+names(messy_data)        #看起來是"ID Number" 
 # We can use the clean_names() function from the janitor package to clean up the column names
 df <- messy_data |>
   janitor::clean_names()
-
+#Take a look at the new sheet! 
+names(df)     #變成id_number 之類的
 
 # Explore duplicates ------------------------------------------------------
-
 # there appear to be some ID numbers that appear multiple times
 table(df$id_number)
 
 # We can sort by id_number to see if there is a pattern
-df <- df |> arrange(id_number)
+df <- df |> arrange(id_number)    
 View(df)
 
 
-# Standardize missing value codes -----------------------------------------
 
+# Standardize missing value codes -----------------------------------------
 # There appear to be non-standard missing codes in the dataset that we need to clean up.
 # Note that self_identified_gender and highest_education_completed are character variable
 # and we need to change unknown to NA_character_
@@ -45,16 +46,16 @@ View(df)
 # NA_real_
 # We will take advantage of the across() function to apply mutate to multiple columns at once
 
-df <- df |>
+df <- df |>        #用mutate(across())
   mutate(
     across(c(hispanic_ethnicity, self_identified_gender, highest_education_completed),
            ~ na_if(.x, "unknown")),
     across(c(age_at_exam, hours_of_sleep_per_night, household_income_before_taxes),
            ~ replace(.x, .x < 0, NA_real_)))
+head(df)
 
 
 # Remove duplicates -------------------------------------------------------
-
 # Now we can count the number of missing variables in order to identify duplicate records
 # that should be discarded
 unique_df <- df |>
@@ -75,8 +76,6 @@ unique_df <- df |>
 
 
 # Collapsing categories ---------------------------------------------------
-
-
 # We would like to do some collapsing of these variables:
 # 1. Create a combined race/ethnicity variable from race_self_identified and hispanic_ethnicity
 # This new variable should combine Asian and Native Hawaiian and Pacific Islander individuals into
@@ -86,7 +85,7 @@ unique_df <- df |>
 
 table(unique_df$race_self_identified, unique_df$hispanic_ethnicity, useNA="ifany")
 
-
+#Collapsing racial/ethnic groups
 unique_df <- unique_df |>
   mutate(raceth = factor(
     case_when(
@@ -107,7 +106,7 @@ unique_df <- unique_df |>
     )
   ))
 
-
+#Collapsing gender
 unique_df <- unique_df |>
   mutate(
     gender_collapsed = if_else(
@@ -124,16 +123,17 @@ table(unique_df$gender_collapsed)
 
 
 # Can you write code to create a collapsed variable for education?
+table(unique_df$highest_education_completed)  #先看看教育程度狀況
 unique_df <- unique_df |>
   mutate(
     education_collapsed = case_when(
-      
-      
-      
+    highest_education_completed %in% c("8th Grade", "9-11th Grade") ~ "less than hs",
+    highest_education_completed %in% c("High School", "Some College") ~ "hs grad",
+    highest_education_completed == "College Grad" ~ "college grad"  
     )
   )
-
 table(unique_df$education_collapsed)
+
 
 # Create categorical variables from continuous variables ------------------
 
@@ -141,10 +141,9 @@ table(unique_df$education_collapsed)
 # We would also like to create a categorical income variable with categories <$35,000, $35000-$50000, $50000-$100000, and >=$100000
 # We would also like to create an income quintile variable
 
-
 # How should we create a dichotomous sleep variable here?
 unique_df <- unique_df |>
-  mutate(insufficient_sleep = )
+  mutate(insufficient_sleep = hours_of_sleep_per_night<7)
 
 table(unique_df$insufficient_sleep)
 
