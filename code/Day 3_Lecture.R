@@ -1,7 +1,7 @@
 # 3.1 ---------------------------------------------------------------------
 library(tidyverse)    #用tidyverse這個package
 # 如果檔名結尾是 .rda
-load("C:/Users/Cheng/Desktop/Harvard/2025 Spring/ID 529 Data Management and Analytic Workflows in R/ID529_Lecture/data/Day 3/nhanes_id529.rda")
+load("data/Day 3/nhanes_id529.rda")
 #賦值並轉換為 tibble 格式 (關鍵步驟！)
 our_data <- as_tibble(nhanes_id529)
 
@@ -32,10 +32,34 @@ view(data)
 
 
 # 3.3 ---------------------------------------------------------------------
+#看Day 3 id529-day3_messyData  這個script
 
 
+# 3.4 ---------------------------------------------------------------------
+x <- 1 
+some_function <- function() {
+  x <- 2 
+  print(x)
+}
+some_function()
+
+print(x)
 
 
+power2 <- function(exp) {
+  force(exp) # ensures exp is not lazily evaluated
+  function(x) {
+    x ^ exp
+  }
+}
+
+square <- power2(2)
+cube <- power2(3)
+
+square(2)
+#> 4
+cube(2)
+#> 8
 
 
 
