@@ -74,7 +74,7 @@ ggplot(penguins, aes(x = flipper_length_mm)) +
   ggtitle("Penguin Bill Lengths and Depths by Species")
 
 # again use ggsave and here() to save it within your project
-ggsave(here("output/penguins_faceted_histogram.png"), width = 8, height = 3)
+ggsave(here("output/Day 5/penguins_faceted_histogram.png"), width = 8, height = 3)
 
 
 # you might also want to plot regression lines in ggplot quickly so
@@ -97,9 +97,6 @@ model_output |>
   filter(term != '(Intercept)') |>
   ggplot(aes(x = estimate, y = term, xmin = conf.low, xmax = conf.high)) +
   geom_pointrange()
-
-# create a table of the results
-gtsummary::tbl_regression(model)
 
 
 # one example with multiple models --------------------------------------------
