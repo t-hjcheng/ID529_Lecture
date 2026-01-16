@@ -425,16 +425,16 @@ tbl_merge_ex1    #右下角看一下結果
 # We can save this as html
 tbl_merge_ex1 %>%
   as_gt() %>%
-  gt::gtsave(filename = "lm_models.html") 
+  gt::gtsave(filename = "output/Day 5/lm_models.html") 
 
 # We can save this as a Word file (docx)
 tbl_merge_ex1 %>%
   as_flex_table() %>%
-  flextable::save_as_docx(path="lm_models.docx")
+  flextable::save_as_docx(path="output/Day 5/lm_models.docx")
 
 # We can even be fancy and export to an Excel file
 tbl_merge_ex1 %>%
-  as_hux_xlsx(file="lm_models.xlsx")
+  as_hux_xlsx(file="output/Day 5/lm_models.xlsx")
 
 
 # Other options for saving the output:
@@ -486,7 +486,7 @@ plot_model(lm_model3,
                      "factor(racecat)Other Non-Hispanic"))
 
 # When we're satisfied with the way the plot looks, we can ggsave
-ggsave(file="lm_model3_figure.png")
+ggsave(file="output/Day 5/lm_model3_figure.png")
 
 
 # Pretty tabular output using sjPlot ----------------------------------------------
@@ -544,6 +544,6 @@ ggplot(lm_education_estimates, aes(x=category, y=estimate, color=model, shape=mo
     theme_bw() +
     theme(legend.position = "bottom")
 
-ggsave(file="lm_model_comparison_figure.pdf", width=10, height=8)
+ggsave(file="output/Day 5/lm_model_comparison_figure.pdf", width=10, height=8)
 
 
