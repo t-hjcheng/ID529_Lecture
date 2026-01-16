@@ -341,6 +341,7 @@ broom::augment(logistic_model4, newdata=data_to_predict, type.predict="response"
 
 
 
+# Day 5.3 P.9 -------------------------------------------------------------
 # Creating Pretty Tables -----------------------------------------------------------
 
 # We can use functions in the gtsummary package to get pretty output
@@ -418,6 +419,8 @@ tbl_merge_ex1 <-
     # that span multiple columns
     tab_spanner = c("**Model 1**", "**Model 2**", "**Model 3**", "**Model 4**")
   )
+
+tbl_merge_ex1    #右下角看一下結果
 
 # We can save this as html
 tbl_merge_ex1 %>%
