@@ -32,11 +32,23 @@ df$x
 #> Error in df$x : object of type 'closure' is not subsettable
 
 
+f <- function(a) g(a)
+g <- function(b) h(b)
+h <- function(c) i(c)
+i <- function(d) {
+  if (!is.numeric(d)) {
+    stop("`d` must be numeric")
+  }
+  d + 10
+}
+f("a")
+
+
+# 6.3 ---------------------------------------------------------------------
+dat <- data.frame(x = c(rep(1:2, 3)),
+                  y = c(rep(c("a", "b", "c"), 2)))
 
 
 
-
-
-# 6.2 ---------------------------------------------------------------------
 
 
