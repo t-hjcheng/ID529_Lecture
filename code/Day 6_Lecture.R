@@ -11,6 +11,8 @@ install.packages("rmarkdown")
 install.packages("tinytex")
 tinytex::install_tinytex()
 # to uninstall TinyTeX, run tinytex::uninstall_tinytex() 
+install.packages("purrr")
+
 
 #see the example: Day 6 my_reproducible_report.Rmd  !!!
 
@@ -19,11 +21,15 @@ tinytex::install_tinytex()
 
 #  USE # to establish tittiles
 #  Use "Ctrl + Alt + i" hot key to start a code chunk
-
+#  $ 文字 $ 這樣會自己一行
 
 
 # 6.2 ---------------------------------------------------------------------
+list('a', 'b', )
+#> Error in list("a", "b", ) : argument 3 is empty
 
+df$x
+#> Error in df$x : object of type 'closure' is not subsettable
 
 
 

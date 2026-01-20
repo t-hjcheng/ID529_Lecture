@@ -30,8 +30,7 @@ This example uses the NHANES dataset and the linear and logistic regression mode
 
 # Models
 
-As we discussed last week, we are fitting a bunch of regression models, of the form
-\[ Y_{i} = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \dots + \beta_p X_{pi} + \epsilon_{i} \]
+As we discussed last week, we are fitting a bunch of regression models, of the form $$ Y_{i} = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \dots + \beta_p X_{pi} + \epsilon_{i} $$
 
 From the model objects, we want to extract estimates of parameters, $\widehat{\beta}$, and associated 95% confidence intervals.
 
@@ -59,7 +58,6 @@ u_{1i}
 \epsilon_{it}
 &\sim N(0, \sigma^2_{\epsilon})
 \end{aligned}
-
 
 # Setting up the data and fitting linear and logistic regression models to use as examples
 
@@ -102,9 +100,6 @@ df <- NHANES  %>%
 df_completecase <- df %>%
   filter(!is.na(BPSysAve) & !is.na(agecat) & !is.na(Gender) & !is.na(racecat))
 ```
-
-
-
 
 ```{r}
 # Fit the linear regression models of interest
@@ -205,7 +200,6 @@ kable(all_coef,
     escape = FALSE
   )
 ```
-
 
 # Summary tables using `gtsummary`
 
@@ -383,11 +377,11 @@ We can use the `ggcoefstats()` function from the `ggstatsplot` package as well.
 
 A few things to note here:
 
-* `sort='none'` specifies no sorting of the effects so they appear in the order that they are specified in the `lm()` model call. But note that they are being plotted from the bottom of the plot going up (rather than from the top going down as in `sjPlot::plot_model`)
+-   `sort='none'` specifies no sorting of the effects so they appear in the order that they are specified in the `lm()` model call. But note that they are being plotted from the bottom of the plot going up (rather than from the top going down as in `sjPlot::plot_model`)
 
-* To make this figure readable, we adjusted the `fig.width` and `fig.height` chunk options (see Rmd), otherwise everything was too squished.
+-   To make this figure readable, we adjusted the `fig.width` and `fig.height` chunk options (see Rmd), otherwise everything was too squished.
 
-* `stats.labels` gives us these helpful labels with the actual $\hat{\beta}$ estimates. `ggcoefstats` is using the `ggrepel` package so that these labels repel away from each other and from the data points. Additional arguments can be passed to ``ggrepel::geom_label_repel()`` via the `stats.label.args` argument.
+-   `stats.labels` gives us these helpful labels with the actual $\hat{\beta}$ estimates. `ggcoefstats` is using the `ggrepel` package so that these labels repel away from each other and from the data points. Additional arguments can be passed to `ggrepel::geom_label_repel()` via the `stats.label.args` argument.
 
 ```{r, fig.width=8, fig.height=12}
 ggcoefstats(lm_model3,
@@ -398,4 +392,3 @@ ggcoefstats(lm_model3,
             title = "Model 3: Associations with average systolic blood pressure",
             sort = "none")
 ```
-
